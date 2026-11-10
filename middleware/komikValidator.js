@@ -45,7 +45,7 @@ function validateBody(schema){
 
 function validateParams(schema){
     return (req, res, next) => {
-        const { error, vlaue } = schema.validate(req.params);
+        const { error, value } = schema.validate(req.params);
 
         if (error) {
             return errorResponse(
