@@ -42,3 +42,29 @@ function validateBody(schema){
         next();
     }
 }
+
+function validateParams(schema){
+    return (req, res, next) => {
+        const { error, vlaue } = schema.validate(req.params);
+
+        if (error) {
+            return errorResponse(
+                res,
+                "Parameter tidak valid",
+                400,
+                error.details.map((item) => ({
+                    field: item.path.join('.'),
+                    message: item.message,
+                }))
+            );
+        }
+        req.params = value;
+        next();
+    }
+}
+
+module.exports = {
+    komikSchema,
+    idSchema,
+    validateBody,
+    validateParams};
